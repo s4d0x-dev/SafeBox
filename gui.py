@@ -5,7 +5,7 @@ from modules.meta_process import extract_metadata
 import os
 import webbrowser
 
-VERSION = "1.1.0"
+VERSION = "1.1.1"
 
 class SafeBoxGUI:
     def __init__(self, root):
