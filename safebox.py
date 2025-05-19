@@ -29,9 +29,11 @@ def main():
     # out_name = get_output_path()
 
     if args.encrypt:
-        encryptor(args.file, args.password, args.out)
+        status = encryptor(args.file, args.password, args.out)
+        # print(status)
     elif args.decrypt:
-        decryptor(args.file, args.password, args.out)
+        status = decryptor(args.file, args.password, args.out)
+        # print(status)
 
 
   

@@ -18,7 +18,7 @@ def encryptor(file_in, password, file_out=None):
 
         with open(file_out, "wb") as f_out:
             f_out.write(enc_data_with_meta)
-    print(f"[+] File Encrypted as: {file_out}")
+    return (f"[+] File Encrypted as: {file_out}")
 
 
 def decryptor(file_in, password, file_out=None):
@@ -28,7 +28,7 @@ def decryptor(file_in, password, file_out=None):
     try:
         enc_part, original_name = extract_metadata(full_data)
     except ValueError as e:
-        print(f"[-] Wrong Encrypted Data.", e)
+        return (f"[-] Wrong Encrypted Data.", e)
         return
     output = file_out or original_name
 
@@ -36,9 +36,9 @@ def decryptor(file_in, password, file_out=None):
     with open(output, "wb") as f_out:
         try:
             pyAesCrypt.decryptStream(encrypted_stream, f_out, password, BUFFER_SIZE ,len(enc_part))
-            print(f"[+] Decrypted to: {output}")
+            return (f"[+] Decrypted to: {output}")
         except ValueError:
             f_out.close()
             # os.remove(output)
-            print(f"[-] Incorrect Password or curropted file.")
+            return (f"[-] Incorrect Password or curropted file.")
         
