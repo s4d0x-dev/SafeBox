@@ -3,11 +3,14 @@ from tkinter import filedialog, messagebox, ttk
 from modules.locker import encryptor, decryptor
 from modules.meta_process import extract_metadata
 import os
+import webbrowser
+
+VERSION = "1.1.0"
 
 class SafeBoxGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("S4D0X SafeBox - File Encryption/Decryption")
+        self.root.title(" S4D0X - SafeBox File Security.")
         self.root.geometry("600x400")
         self.root.resizable(False, False)
         
@@ -41,6 +44,11 @@ class SafeBoxGUI:
         self.decrypt_tab = ttk.Frame(self.notebook)
         self.notebook.add(self.decrypt_tab, text="Decrypt")
         self.setup_decrypt_tab()
+        
+        # About tab
+        self.about_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.about_tab, text="About")
+        self.setup_about_tab()
         
         # Status label
         self.status = tk.Label(self.main_frame, text="Ready", wraplength=500, fg="blue")
@@ -102,6 +110,41 @@ class SafeBoxGUI:
         # Action button
         tk.Button(self.decrypt_tab, text="Decrypt", command=self.execute_decrypt, bg="#4CAF50", fg="white", font=("Helvetica", 10, "bold")).pack(pady=20)
     
+    def setup_about_tab(self):
+        # About frame
+        about_frame = tk.Frame(self.about_tab)
+        about_frame.pack(pady=20, padx=20, fill="both", expand=True)
+        
+        # About text
+        tk.Label(about_frame, text=f"SafeBox v{VERSION}", font=("Helvetica", 14, "bold")).pack(anchor="w")
+        tk.Label(about_frame, text="A powerful file encryption/decryption tool, that allows you to encrypt your files\nwith your own password in highly valuable(AES) Encryption with\nsome customization/Optimzations.\nIt's free and open-source, so enjoy it.").pack(anchor="w", pady=5)
+        tk.Label(about_frame, text="Author: S4D0X").pack(anchor="w", pady=5)
+        
+        # GitHub link
+        github_frame = tk.Frame(about_frame)
+        github_frame.pack(fill="x", pady=2)
+        tk.Label(github_frame, text="GitHub:", width=10, anchor="w").pack(side="left")
+        github_link = tk.Label(github_frame, text="github.com/S4D0X", fg="blue", cursor="hand2")
+        github_link.pack(side="left")
+        github_link.bind("<Button-1>", lambda e: webbrowser.open("https://github.com/s4d0x-dev/safebox"))
+        
+        # Facebook link
+        fb_frame = tk.Frame(about_frame)
+        fb_frame.pack(fill="x", pady=2)
+        tk.Label(fb_frame, text="Facebook:", width=10, anchor="w").pack(side="left")
+        fb_link = tk.Label(fb_frame, text="facebook.com/S4D0X", fg="blue", cursor="hand2")
+        fb_link.pack(side="left")
+        fb_link.bind("<Button-1>", lambda e: webbrowser.open("https://facebook.com/fared.baktashabdaly.1"))
+        
+        # Email
+        email_frame = tk.Frame(about_frame)
+        email_frame.pack(fill="x", pady=2)
+        tk.Label(email_frame, text="Email:", width=10, anchor="w").pack(side="left")
+        email_entry = tk.Entry(email_frame, width=40, state="readonly")
+        email_entry.insert(0, "faredba@outlook.com")
+        email_entry.config(state="readonly")
+        email_entry.pack(side="left")
+    
     def browse_encrypt_file(self):
         file = filedialog.askopenfilename()
         if file:
@@ -109,12 +152,12 @@ class SafeBoxGUI:
             self.encrypt_output_path.set(file + ".ssb")
     
     def browse_encrypt_output(self):
-        file = filedialog.asksaveasfilename(defaultextension=".ssb", filetypes=[("S4D0X - SafeBox Secure files", "*.ssb"), ("All files", "*.*")])
+        file = filedialog.asksaveasfilename(defaultextension=".ssb", filetypes=[("SafeBox files", "*.ssb"), ("All files", "*.*")])
         if file:
             self.encrypt_output_path.set(file)
     
     def browse_decrypt_file(self):
-        file = filedialog.askopenfilename(filetypes=[("S4D0X - SafeBox Secure files", "*.ssb"), ("All files", "*.*")])
+        file = filedialog.askopenfilename(filetypes=[("SafeBox files", "*.ssb"), ("All files", "*.*")])
         if file:
             self.decrypt_file_path.set(file)
             if self.use_original_name.get():
@@ -221,14 +264,13 @@ class SafeBoxGUI:
             result = encryptor(self.encrypt_file_path.get(), self.encrypt_password.get(), self.encrypt_output_path.get())
             if isinstance(result, tuple):
                 message, *err = result
-                if "[-]" in message:
-                    self.status.config(text=message, fg="red")
-                    if err:
-                        messagebox.showerror("Error", str(err[0]))
-                else:
-                    self.status.config(text=message, fg="green")
+                color = "red" if "[-]" in message else "green" if "[+]" in message else "blue"
+                self.status.config(text=message, fg=color)
+                if err and "[-]" in message:
+                    messagebox.showerror("Error", str(err[0]))
             else:
-                self.status.config(text=result, fg="green")
+                color = "red" if "[-]" in result else "green" if "[+]" in result else "blue"
+                self.status.config(text=result, fg=color)
         except Exception as e:
             self.status.config(text="Error occurred", fg="red")
             messagebox.showerror("Error", str(e))
@@ -246,14 +288,13 @@ class SafeBoxGUI:
             result = decryptor(self.decrypt_file_path.get(), self.decrypt_password.get(), output_path)
             if isinstance(result, tuple):
                 message, *err = result
-                if "[-]" in message:
-                    self.status.config(text=message, fg="red")
-                    if err:
-                        messagebox.showerror("Error", str(err[0]))
-                else:
-                    self.status.config(text=message, fg="green")
+                color = "red" if "[-]" in message else "green" if "[+]" in message else "blue"
+                self.status.config(text=message, fg=color)
+                if err and "[-]" in message:
+                    messagebox.showerror("Error", str(err[0]))
             else:
-                self.status.config(text=result, fg="green")
+                color = "red" if "[-]" in result else "green" if "[+]" in result else "blue"
+                self.status.config(text=result, fg=color)
         except Exception as e:
             self.status.config(text="Error occurred", fg="red")
             messagebox.showerror("Error", str(e))
