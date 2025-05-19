@@ -18,6 +18,8 @@ class SafeBoxGUI:
         self.encrypt_file_path = tk.StringVar()
         self.encrypt_output_path = tk.StringVar()
         self.encrypt_password = tk.StringVar()
+        self.encrypt_confirm_password = tk.StringVar()
+        self.show_password = tk.BooleanVar(value=False)
         self.decrypt_file_path = tk.StringVar()
         self.decrypt_output_path = tk.StringVar()
         self.decrypt_output_dir = tk.StringVar()
@@ -66,7 +68,20 @@ class SafeBoxGUI:
         pass_frame = tk.Frame(self.encrypt_tab)
         pass_frame.pack(fill="x", pady=5)
         tk.Label(pass_frame, text="Password:", width=15, anchor="w").pack(side="left")
-        tk.Entry(pass_frame, textvariable=self.encrypt_password, width=40, show="*").pack(side="left", padx=5)
+        self.encrypt_password_entry = tk.Entry(pass_frame, textvariable=self.encrypt_password, width=40, show="*")
+        self.encrypt_password_entry.pack(side="left", padx=5)
+        
+        # Confirm Password
+        confirm_pass_frame = tk.Frame(self.encrypt_tab)
+        confirm_pass_frame.pack(fill="x", pady=5)
+        tk.Label(confirm_pass_frame, text="Confirm Password:", width=15, anchor="w").pack(side="left")
+        self.encrypt_confirm_password_entry = tk.Entry(confirm_pass_frame, textvariable=self.encrypt_confirm_password, width=40, show="*")
+        self.encrypt_confirm_password_entry.pack(side="left", padx=5)
+        
+        # Show Password Checkbox
+        show_pass_frame = tk.Frame(self.encrypt_tab)
+        show_pass_frame.pack(fill="x", pady=5)
+        tk.Checkbutton(show_pass_frame, text="Show Password", variable=self.show_password, command=self.toggle_show_password).pack(anchor="w")
         
         # Output file
         out_frame = tk.Frame(self.encrypt_tab)
@@ -124,7 +139,7 @@ class SafeBoxGUI:
         github_frame = tk.Frame(about_frame)
         github_frame.pack(fill="x", pady=2)
         tk.Label(github_frame, text="GitHub:", width=10, anchor="w").pack(side="left")
-        github_link = tk.Label(github_frame, text="github.com/S4D0X", fg="blue", cursor="hand2")
+        github_link = tk.Label(github_frame, text="github.com/s4d0x-dev", fg="blue", cursor="hand2")
         github_link.pack(side="left")
         github_link.bind("<Button-1>", lambda e: webbrowser.open("https://github.com/s4d0x-dev/safebox"))
         
@@ -132,7 +147,7 @@ class SafeBoxGUI:
         fb_frame = tk.Frame(about_frame)
         fb_frame.pack(fill="x", pady=2)
         tk.Label(fb_frame, text="Facebook:", width=10, anchor="w").pack(side="left")
-        fb_link = tk.Label(fb_frame, text="facebook.com/S4D0X", fg="blue", cursor="hand2")
+        fb_link = tk.Label(fb_frame, text="Fared Baktash Abdaly", fg="blue", cursor="hand2")
         fb_link.pack(side="left")
         fb_link.bind("<Button-1>", lambda e: webbrowser.open("https://facebook.com/fared.baktashabdaly.1"))
         
@@ -140,10 +155,9 @@ class SafeBoxGUI:
         email_frame = tk.Frame(about_frame)
         email_frame.pack(fill="x", pady=2)
         tk.Label(email_frame, text="Email:", width=10, anchor="w").pack(side="left")
-        email_entry = tk.Entry(email_frame, width=40, state="readonly")
-        email_entry.insert(0, "faredba@outlook.com")
-        email_entry.config(state="readonly")
-        email_entry.pack(side="left")
+        email_link = tk.Label(email_frame, text="faredba@outlook.com", fg="blue", cursor="hand2")
+        email_link.pack(side="left")
+        email_link.bind("<Button-1>", lambda e: webbrowser.open("mailto:faredba@outlook.com"))
     
     def browse_encrypt_file(self):
         file = filedialog.askopenfilename()
@@ -223,12 +237,20 @@ class SafeBoxGUI:
                 self.decrypt_output_path.set(base)
                 self.decrypt_output_dir.set("")
     
+    def toggle_show_password(self):
+        show_char = "" if self.show_password.get() else "*"
+        self.encrypt_password_entry.config(show=show_char)
+        self.encrypt_confirm_password_entry.config(show=show_char)
+    
     def validate_encrypt_inputs(self):
         if not self.encrypt_file_path.get():
             messagebox.showerror("Error", "Please select an input file.")
             return False
         if not self.encrypt_password.get():
             messagebox.showerror("Error", "Please enter a password.")
+            return False
+        if self.encrypt_password.get() != self.encrypt_confirm_password.get():
+            messagebox.showerror("Error", "Passwords do not match.")
             return False
         if not self.encrypt_output_path.get():
             messagebox.showerror("Error", "Please specify an output file.")
