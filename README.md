@@ -1,6 +1,6 @@
 # SafeBox 🔒
 
-![SafeBox Logo](icon2.ico)  
+![SafeBox Logo](gui_icon.ico)  
 **A powerful, open-source file encryption/decryption tool with a user-friendly GUI.**
 
 SafeBox is a secure, easy-to-use application that allows you to encrypt and decrypt files using AES encryption. Protect your sensitive data with a custom password and enjoy features like metadata preservation and a modern interface. Built by **S4D0X**, SafeBox is free, open-source, and designed for both casual users and security enthusiasts.
