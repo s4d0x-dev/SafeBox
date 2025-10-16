@@ -1,5 +1,6 @@
 import argparse
 from modules.locker import encryptor, decryptor
+import sys
 
 
 #-------------------- ARG PARSERS
@@ -15,13 +16,13 @@ args = parse.parse_args()
 def args_validation():
     if not args.encrypt and not args.decrypt:
         print("Please select either '-e' (encrypt) or '-d' (decrypt).")
-        exit(1)
+        sys.exit(1)
     if args.encrypt and args.decrypt:
         print("Please select only one mode: either '-e' or '-d', not both.")
-        exit(1)
+        sys.exit(1)
     if not args.file or not args.password:
         print("Please provide both -f or '--file' and -p or '--password'.")
-        exit(1)
+        sys.exit(1)
 
 #-------------------- MAIN
 def main():
