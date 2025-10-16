@@ -4,8 +4,9 @@ from modules.locker import encryptor, decryptor
 from modules.meta_process import extract_metadata
 import os
 import webbrowser
+import sys
 
-VERSION = "1.1.1"
+VERSION = "1.2.0"
 
 class SafeBoxGUI:
     def __init__(self, root):
@@ -324,4 +325,11 @@ class SafeBoxGUI:
 if __name__ == "__main__":
     root = tk.Tk()
     app = SafeBoxGUI(root)
+
+    if len(sys.argv) > 1:
+        clicked_file = sys.argv[1]
+        app.notebook.select(app.decrypt_tab)
+        # messagebox.showinfo("argv found", f"your arg is: {msg}")
+        app.decrypt_file_path.set(os.path.abspath(clicked_file))
+        app.status.config(text=f"Loaded file: {clicked_file}", fg="Green")
     root.mainloop()

@@ -1,8 +1,9 @@
 import argparse
 from modules.locker import encryptor, decryptor
 
+
 #-------------------- ARG PARSERS
-parse = argparse.ArgumentParser("This is a Powerfull Custom File Security App.")
+parse = argparse.ArgumentParser("This is 'S4D0X' Safebox, a Powerfull Custom File Security App by Mr. FBA, please use '-h' or '--help' to get help.")
 parse.add_argument("-e", "--encrypt", action="store_true", help="Start a file encryption.")
 parse.add_argument("-d", "--decrypt", action="store_true", help="Decrypt a file.")
 parse.add_argument("-f", "--file", help="The file name/path.")
@@ -39,3 +40,11 @@ def main():
   
 if __name__ == "__main__":
     main()
+    # import sys, os, subprocess
+    # if len(sys.argv) > 1:
+    #     main()  # run CLI mode
+    # else:
+    #     # run GUI mode (open gui.py)
+    #     script_path = os.path.join(os.path.dirname(__file__), "gui.py")
+    #     subprocess.Popen([sys.executable, script_path])
+
