@@ -1,51 +1,54 @@
 import argparse
-from modules.locker import encryptor, decryptor
 import sys
+from core.safebox_handler import SafeBox
+
+class SafeBoxCLI:
+    def __init__(self):
+        self.safebox = SafeBox()
+        self.args = self.parse_arguments()
+
+    def parse_arguments(self):
+        parser = argparse.ArgumentParser("SafeBox CLI")
+
+        parser.add_argument("-e", "--encrypt", action="store_true", help="Encrypt a File")
+        parser.add_argument("-d", "--decrypt", action="store_true", help="Decrypt a File")
+        parser.add_argument("-f", "--file", help="Path to the File")
+        parser.add_argument("-p", "--password", help="The Password")
+        parser.add_argument("-o", "--out", help="Path to the output File, including the File name (Optional)")
+
+        return parser.parse_args()
+
+    def validate(self):
+        if not self.args.encrypt and not self.args.decrypt:
+            sys.exit("Select either '-e' or '-d'")
+        
+        if self.args.encrypt and self.args.decrypt:
+            sys.exit("Select one mode only ('-e' or '-d')")
+
+        if not self.args.file or not self.args.password:
+            sys.exit("both, 'file' and 'password' are required")
+
+    def run(self):
+        self.validate()
+
+        if self.args.encrypt:
+            print(
+                self.safebox.encrypt_file(
+                    self.args.file,
+                    self.args.password,
+                    self.args.out
+                )
+            )
+        elif self.args.decrypt:
+            print(
+                self.safebox.decrypt_file(
+                    self.args.file,
+                    self.args.password,
+                    self.args.out
+                )
+            )
 
 
-#-------------------- ARG PARSERS
-parse = argparse.ArgumentParser("This is 'S4D0X' Safebox, a Powerfull Custom File Security App by Mr. FBA, please use '-h' or '--help' to get help.")
-parse.add_argument("-e", "--encrypt", action="store_true", help="Start a file encryption.")
-parse.add_argument("-d", "--decrypt", action="store_true", help="Decrypt a file.")
-parse.add_argument("-f", "--file", help="The file name/path.")
-parse.add_argument("-p", "--password", help="Encryption Password.")
-parse.add_argument("-o", "--out", help="The output file name/path.")
-args = parse.parse_args()
-
-#-------------------- ARG VALIDITIONS
-def args_validation():
-    if not args.encrypt and not args.decrypt:
-        print("Please select either '-e' (encrypt) or '-d' (decrypt).")
-        sys.exit(1)
-    if args.encrypt and args.decrypt:
-        print("Please select only one mode: either '-e' or '-d', not both.")
-        sys.exit(1)
-    if not args.file or not args.password:
-        print("Please provide both -f or '--file' and -p or '--password'.")
-        sys.exit(1)
-
-#-------------------- MAIN
-def main():
-    args_validation()
-    print("The SafeBox initialized!")
-    # out_name = get_output_path()
-
-    if args.encrypt:
-        status = encryptor(args.file, args.password, args.out)
-        # print(status)
-    elif args.decrypt:
-        status = decryptor(args.file, args.password, args.out)
-        # print(status)
-
-
-  
 if __name__ == "__main__":
-    main()
-    # import sys, os, subprocess
-    # if len(sys.argv) > 1:
-    #     main()  # run CLI mode
-    # else:
-    #     # run GUI mode (open gui.py)
-    #     script_path = os.path.join(os.path.dirname(__file__), "gui.py")
-    #     subprocess.Popen([sys.executable, script_path])
-
+    cli = SafeBoxCLI()
+    cli.run()
