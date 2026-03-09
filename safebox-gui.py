@@ -19,6 +19,7 @@ class SafeBoxGUI:
         self.root.title(" S4D0X - SafeBox File Security.")
         self.root.geometry("600x400")
         self.root.resizable(False, False)
+        self.root.iconbitmap("gui_icon.ico")
         
         # Variables
         self.encrypt_file_path = tk.StringVar()
