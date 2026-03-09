@@ -12,8 +12,8 @@ class SafeBoxCLI:
 
         parser.add_argument("-e", "--encrypt", action="store_true", help="Encrypt a File")
         parser.add_argument("-d", "--decrypt", action="store_true", help="Decrypt a File")
-        parser.add_argument("-f", "--file", help="Path to the File")
-        parser.add_argument("-p", "--password", help="The Password")
+        parser.add_argument("-f", "--file", help="Path to the File", required=True)
+        parser.add_argument("-p", "--password", help="The Password", required=True)
         parser.add_argument("-o", "--out", help="Path to the output File, including the File name (Optional)")
 
         return parser.parse_args()
