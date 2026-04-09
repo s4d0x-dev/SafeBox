@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=SafeBox-GUI
+Type=Application
+Exec=safebox-gui
+Icon=safebox
+GenericName=Safe File Encryption/Decryption App
+Categories=GTK;Utility;Security;
+Keywords=safebox;security;encrypt;decrypt;locker;crypto;ssb;s4d0x;sadox;
+Comment=Encrypt and decrypt files securely.
+StartupNotify=true

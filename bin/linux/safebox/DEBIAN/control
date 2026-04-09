@@ -1,0 +1,8 @@
+Package: safebox
+Version: 1.2.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Maintainer: S4D0X <faredba@outlook.com>
+Description: SafeBox File Security Tool
+ A powerful open-source file encryption and decryption tool with GUI.
