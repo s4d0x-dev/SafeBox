@@ -6,7 +6,7 @@
 SafeBox is a secure, easy-to-use application that allows you to encrypt and decrypt files using AES encryption. Protect your sensitive data with a custom password and enjoy features like metadata preservation and a modern interface. Built by **S4D0X**, SafeBox is free, open-source, and designed for both casual users and security enthusiasts.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/Version-1.2.1-blue)](https://github.com/s4d0x-dev/safebox/releases)
+[![Version](https://img.shields.io/badge/Version-1.2.2-blue)](https://github.com/s4d0x-dev/safebox/releases)
 [![GitHub Issues](https://img.shields.io/github/issues/s4d0x-dev/safebox)](https://github.com/s4d0x-dev/safebox/issues)
 
 ## ✨ Features
@@ -39,7 +39,7 @@ SafeBox is a secure, easy-to-use application that allows you to encrypt and decr
 
 ### For End-Users (Windows)
 1. **Download the Installer**:
-   - Visit the [Releases](https://github.com/s4d0x-dev/safebox/releases) page and download `SafeBoxInstaller.exe` (version 1.2.1).
+   - Visit the [Releases](https://github.com/s4d0x-dev/safebox/releases) page and download `SafeBoxInstaller.exe` (version 1.2.2).
 2. **Run the Installer**:
    - Double-click `SafeBoxInstaller.exe`.
    - Follow the wizard to install SafeBox to `C:\Program Files\SafeBox` (or a custom directory).
@@ -90,7 +90,7 @@ SafeBox provides a simple GUI with three tabs: Encrypt, Decrypt, and About.
 4. **Decrypt**: Click “Decrypt”. Success shows as `[+] Decrypted to: ...` (green).
 
 ### About Tab
-- View SafeBox version (1.2.1), description, and author details.
+- View SafeBox version (1.2.2), description, and author details.
 - Contact S4D0X via:
   - GitHub: [github.com/s4d0x-dev/safebox](https://github.com/s4d0x-dev/safebox)
   - Email: faredba@outlook.com
