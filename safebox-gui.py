@@ -6,7 +6,7 @@ import os
 import webbrowser
 import sys
 
-VERSION = "1.2.1"
+VERSION = "1.2.2"
 
 class SafeBoxGUI:
 
@@ -19,7 +19,15 @@ class SafeBoxGUI:
         self.root.title(" S4D0X - SafeBox File Security.")
         self.root.geometry("600x400")
         self.root.resizable(False, False)
-        self.root.iconbitmap("gui_icon.ico")
+        # self.root.iconbitmap("gui_icon.ico")
+        try:
+            if sys.platform.startswith("win"):
+                self.root.iconbitmap("gui_icon.ico")
+            else:
+                icon = tk.PhotoImage(file="gui_icon.png")   # use PNG on Linux
+                self.root.iconphoto(True, icon)
+        except Exception:
+            pass
         
         # Variables
         self.encrypt_file_path = tk.StringVar()
