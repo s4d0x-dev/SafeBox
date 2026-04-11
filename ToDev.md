@@ -3,7 +3,7 @@
 
 ## Setting Version in right way
 ###### Do all:
-1. Edit `VERSION` variable in `gui.py`
+1. Edit `VERSION` variable in `safebox-gui.py`
 2. Edit `filevers` and `prodvers` variable in `version.rc`
 - note: as opensource-system versioning has 3 digits in ver and windows has 4 digits versioning system, I must add a zero(0) at the ending digit.
 e.g. `1.2.0` to `1.2.0.0.` or in another example `1.2.7` to `1.2.7.0`
